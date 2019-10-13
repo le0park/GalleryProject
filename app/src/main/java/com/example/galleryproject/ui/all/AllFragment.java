@@ -17,8 +17,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.galleryproject.BottomCalendarLayout;
 import com.example.galleryproject.MainActivity;
+import com.example.galleryproject.OnExpandListener;
 import com.example.galleryproject.R;
+import com.example.galleryproject.TopCalendarLayout;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.ml.vision.FirebaseVision;
@@ -37,20 +40,34 @@ public class AllFragment extends Fragment {
     private AllViewModel allViewModel;
     private RecyclerView allRecyclerView;
     private AllRecyclerViewAdapter adapter;
-//    TextView textView;
+
+    private TopCalendarLayout topCalendar;
+    private BottomCalendarLayout bottomCalendar;
 
     File file;
     File[] listFile;
     private ArrayList<String> filePaths;
-
     FirebaseVisionImage firebaseImage;
     FirebaseVisionImageLabeler labeler;
+    //    TextView textView;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-
         allViewModel = ViewModelProviders.of(this).get(AllViewModel.class);
         View root = inflater.inflate(R.layout.fragment_all, container, false);
+
+
+        topCalendar = (TopCalendarLayout) root.findViewById(R.id.topCalendar);
+        bottomCalendar = (BottomCalendarLayout) root.findViewById(R.id.bottomCalendar);
+        topCalendar.setOnExpandListener(new OnExpandListener() {
+            @Override
+            public void onExpand() {
+                bottomCalendar.setVisibility();
+            }
+        });
+
+
+
         labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler();
 
         allRecyclerView = root.findViewById(R.id.allRecyclerView);
