@@ -5,29 +5,28 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/calendarLayout"
-        android:orientation="vertical"
+    <com.example.galleryproject.TopCalendarLayout
+        android:id="@+id/topCalendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp" />
+
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.galleryproject.TopCalendarLayout
-            android:id="@+id/topCalendar"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/allRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="GridLayoutManager" />
 
         <com.example.galleryproject.BottomCalendarLayout
             android:id="@+id/bottomCalendar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top" />
 
-    </LinearLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/allRecyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="vertical"
-        app:layoutManager="GridLayoutManager" />
-
+    </FrameLayout>
 </LinearLayout>

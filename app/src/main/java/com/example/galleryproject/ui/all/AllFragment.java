@@ -56,17 +56,15 @@ public class AllFragment extends Fragment {
         allViewModel = ViewModelProviders.of(this).get(AllViewModel.class);
         View root = inflater.inflate(R.layout.fragment_all, container, false);
 
-
         topCalendar = (TopCalendarLayout) root.findViewById(R.id.topCalendar);
         bottomCalendar = (BottomCalendarLayout) root.findViewById(R.id.bottomCalendar);
         topCalendar.setOnExpandListener(new OnExpandListener() {
             @Override
             public void onExpand() {
+                topCalendar.buttonChange();
                 bottomCalendar.setVisibility();
             }
         });
-
-
 
         labeler = FirebaseVision.getInstance().getOnDeviceImageLabeler();
 

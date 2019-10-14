@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.galleryproject.BottomCalendarLayout;
+import com.example.galleryproject.OnExpandListener;
 import com.example.galleryproject.R;
+import com.example.galleryproject.TopCalendarLayout;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import xyz.sangcomz.stickytimelineview.RecyclerSectionItemDecoration;
@@ -30,6 +30,9 @@ public class TimeLineFragment extends Fragment {
     private TimeLineRecyclerView timeLineRecyclerView;
     private TimeLineRecyclerViewAdapter adapter;
 
+    private TopCalendarLayout topCalendar;
+    private BottomCalendarLayout bottomCalendar;
+
     private ArrayList<MemoData> dataset;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -40,6 +43,16 @@ public class TimeLineFragment extends Fragment {
 
         timeLineRecyclerView = root.findViewById(R.id.timeLineRecyclerView);
         timeLineRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+
+        topCalendar = (TopCalendarLayout) root.findViewById(R.id.topCalendar);
+        bottomCalendar = (BottomCalendarLayout) root.findViewById(R.id.bottomCalendar);
+        topCalendar.setOnExpandListener(new OnExpandListener() {
+            @Override
+            public void onExpand() {
+                topCalendar.buttonChange();
+                bottomCalendar.setVisibility();
+            }
+        });
 
         dataset = new ArrayList<MemoData>();
         dataset.add(new MemoData(R.drawable.autumn, "2019.10.07"));
